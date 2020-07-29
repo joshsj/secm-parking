@@ -1,0 +1,18 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<p>Welcome to Park-King.</p>
+
+@* free spaces message *@
+@if (@Model.AvailableSpaces > 0)
+{<p>There are currently @Model.AvailableSpaces spaces available.</p> }
+else
+{ <p>No spaces are available, sorry.</p>}
+
+@* user's car status *@
+@if (@Model.UserHasCarParked)
+{<a asp-controller="Home" asp-action="Index">View your car.</a> }
+else
+{<p>Parked? <a asp-controller="Home" asp-action="Index">Secure your car.</a></p>}
