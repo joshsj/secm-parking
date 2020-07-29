@@ -20,7 +20,7 @@ namespace ParkKing.Controllers
             // calc amount of spaces left
             var spaces = carRepo.BayAmount - carRepo.GetAll().Count();
 
-            return View(new IndexViewModel { AvailableSpaces = spaces, UserHasCarParked = false });
+            return View((AvailableSpace: spaces, UserHasCarParked: false ));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
