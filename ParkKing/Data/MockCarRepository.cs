@@ -24,12 +24,28 @@ namespace ParkKing.Data
 
         bool ICarRepository.Secure(Car car)
         {
-            throw new NotImplementedException();
+            // check bay number availble
+            if (cars.Any(c => c.BayNumber == car.BayNumber))
+            {
+                return false;
+            }
+
+            cars.Add(car);
+            return true;
         }
 
-        void ICarRepository.Release(Car car)
+        bool ICarRepository.Release(Car car)
         {
-            throw new NotImplementedException();
+            var carToGo = cars.SingleOrDefault(c => c.BayNumber == car.BayNumber);
+            
+            // check found
+            if (carToGo == default(Car))
+            {
+                return false;
+            }
+
+            cars.Remove(carToGo);
+            return true;
         }
     }
 }

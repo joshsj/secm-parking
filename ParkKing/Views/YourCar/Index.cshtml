@@ -1,0 +1,26 @@
+﻿@model Car
+@{
+    ViewData["Title"] = "Your Car";
+}
+
+<h2>Your Car</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Bay Number</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.BayNumber</td>
+            <td>@Model.Password</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<form method="post" asp-action="Release">
+    <input type="submit" class="btn btn-danger" value="Release" />
+</form>

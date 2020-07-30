@@ -14,6 +14,6 @@ namespace ParkKing.Data
         Car GetByBayNo(int no);
 
         bool Secure(Car car);
-        void Release(Car car);
+        bool Release(Car car);
     }
 }
