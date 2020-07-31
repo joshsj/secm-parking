@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ParkKing.Models;
 
-namespace ParkKing.Data
+namespace ParkKing.Data.CarRepository
 {
     public interface ICarRepository
     {
@@ -10,10 +10,23 @@ namespace ParkKing.Data
         IEnumerable<Car> GetAll();
         Car GetByBayNo(int no);
 
-        bool Secure(Car car);
-        bool Release(Car car);
+        SecureResult Secure(Car car);
+        ReleaseResult Release(Car car);
 
         // helpers
         bool IsBayAvailable(int bayNo);
+    }
+
+    public enum SecureResult
+    {
+        Secured, 
+        BadBayNumber
+    }
+
+    public enum ReleaseResult
+    {
+        Released,
+        BadBayNumber, 
+        BadPassword
     }
 }

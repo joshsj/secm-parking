@@ -1,10 +1,8 @@
-﻿using System;
+﻿using ParkKing.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using ParkKing.Models;
 
-namespace ParkKing.Data
+namespace ParkKing.Data.CarRepository
 {
     public class MockCarRepository : ICarRepository
     {
@@ -12,9 +10,9 @@ namespace ParkKing.Data
 
         private List<Car> cars = new List<Car>
         {
-            new Car { BayNumber = 1, Password = "wasd" },
-            new Car { BayNumber = 4, Password = "123" },
-            new Car { BayNumber = 5, Password = "qwe" },
+            new Car { BayNumber = 1, Password = "password1" },
+            new Car { BayNumber = 4, Password = "password4" },
+            new Car { BayNumber = 5, Password = "password5" },
         };
 
         IEnumerable<Car> ICarRepository.GetAll() => cars;
@@ -22,30 +20,37 @@ namespace ParkKing.Data
         Car ICarRepository.GetByBayNo(int no)
             => cars.SingleOrDefault(car => car.BayNumber == no);
 
-        bool ICarRepository.Secure(Car car)
+        SecureResult ICarRepository.Secure(Car car)
         {
             // check bay number availble
             if (cars.Any(c => c.BayNumber == car.BayNumber))
             {
-                return false;
+                return SecureResult.BadBayNumber;
             }
 
             cars.Add(car);
-            return true;
+            return SecureResult.Secured;
         }
 
-        bool ICarRepository.Release(Car car)
+        ReleaseResult ICarRepository.Release(Car car)
         {
-            var carToGo = cars.SingleOrDefault(c => c.BayNumber == car.BayNumber);
+            var carToRelase = cars.SingleOrDefault(c => c.BayNumber == car.BayNumber);
             
             // check found
-            if (carToGo == default(Car))
+            if (carToRelase == default(Car))
             {
-                return false;
+                return ReleaseResult.BadBayNumber;
             }
 
-            cars.Remove(carToGo);
-            return true;
+            // check password
+            // TODO secure
+            if (carToRelase.Password != car.Password)
+            {
+                return ReleaseResult.BadPassword;
+            }
+
+            cars.Remove(carToRelase);
+            return ReleaseResult.Released;
         }
 
         bool ICarRepository.IsBayAvailable(int bayNo)

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ParkKing.Data;
+using ParkKing.Data.CarRepository;
 using ParkKing.Models;
 using ParkKing.ViewModels;
 
@@ -37,21 +37,29 @@ namespace ParkKing.Controllers
         [HttpPost]
         public IActionResult Finalise(Car car)
         {
-            if (!carRepo.Secure(car))
+            switch (carRepo.Secure(car))
             {
-                return View("Message", new MessageViewModel
-                {
-                    IsSuccessMessage = false,
-                    Message = "There was a problem securing your vehicle."
-                });
+                case SecureResult.BadBayNumber:
+                    return View("Message", new MessageViewModel
+                    {
+                        IsSuccessMessage = false,
+                        Message = "There was a problem securing your vehicle."
+                    });
+
+                case SecureResult.Secured:
+                    return View("Message", new MessageViewModel
+                    {
+                        IsSuccessMessage = true,
+                        Message = "Vehicle secured!"
+                    });
+
+                default:
+                    return View("Message", new MessageViewModel
+                    {
+                        IsSuccessMessage = false,
+                        Message = "An interal error occured. Sorry."
+                    });
             }
-
-
-           return View("Message", new MessageViewModel
-           {
-               IsSuccessMessage = true,
-               Message = "Vehicle secured!"
-           });
         }
     }
 }

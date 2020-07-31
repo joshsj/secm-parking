@@ -3,12 +3,12 @@
     ViewData["Title"] = "Secure";
 }
 
-<h1>Secure your vehicle</h1>
+<h1>Secure.</h1>
 
 <form method="post">
     <div class="form-group">
         <label asp-for="BayNumber">Bay Number</label>
-        <input class="form-control" asp-for="BayNumber" />
+        <input class="form-control" asp-for="BayNumber" autofocus/>
         <span asp-validation-for="BayNumber" class="text-danger"></span>
     </div>
 

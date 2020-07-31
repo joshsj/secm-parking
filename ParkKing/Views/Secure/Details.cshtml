@@ -10,7 +10,7 @@
 
     <div class="form-group">
         <label asp-for="Password">Password</label>
-        <input class="form-control" type="password" asp-for="Password" />
+        <input class="form-control" type="password" asp-for="Password" autofocus/>
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
 
@@ -22,7 +22,7 @@
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
 
-    <input type="submit" value="Secure" class="btn btn-primary" />
+    <input type="submit" value="Secure" class="btn btn-success" />
 </form>
 
 

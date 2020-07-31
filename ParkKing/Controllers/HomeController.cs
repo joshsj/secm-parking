@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ParkKing.ViewModels;
-using ParkKing.Data;
 using System.Linq;
 using ParkKing.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
+using ParkKing.Data.CarRepository;
 
 namespace ParkKing.Controllers
 {
