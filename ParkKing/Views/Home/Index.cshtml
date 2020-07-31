@@ -3,17 +3,5 @@
     ViewData["Title"] = "Home";
 }
 
-<h2>Home</h2>
-<p>Welcome to Park-King.</p>
-
-@* free spaces message *@
-@if (@Model.AvailableSpaces > 0)
-{<p>There are currently @Model.AvailableSpaces spaces available.</p> }
-else
-{ <p>No spaces are available, sorry.</p>}
-
-@* users' car status *@
-@if (@Model.UserHasCarParked)
-{<a asp-controller="YourCar" asp-action="Index">View your car.</a> }
-else
-{<p>Parked? <a asp-controller="YourCar" asp-action="Register">Secure your car.</a></p>}
+<a class="btn btn-lg btn-outline-dark mr-5" href="#">Secure</a>
+<a class="btn btn-lg btn-outline-dark" href="#">Release</a>

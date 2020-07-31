@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html>
+@* bigger base font size *@
+<html style="font-size: 18px">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +9,9 @@
     <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
-    <nav class="navbar navbar-expand pt-4 pb-2 navbar-light border-bottom shadow">
-        <div class="container">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                <h1>Park-King</h1>
-            </a>
-
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="btn btn-outline-dark ml-3" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-outline-dark ml-3" asp-controller="YourCar" asp-action="Index">Your Car</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container mt-4">
+    <main class="d-flex justify-content-center align-items-center min-vh-100">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2020 - Park-King, a rapid software prototype addressing security aspects of parking cars.</p>
-        </footer>
-    </div>
+    </main>
 
     @RenderSection("Scripts", required: false)
 </body>
