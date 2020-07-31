@@ -47,5 +47,8 @@ namespace ParkKing.Data
             cars.Remove(carToGo);
             return true;
         }
+
+        bool ICarRepository.IsBayAvailable(int bayNo)
+            => !cars.Any(car => car.BayNumber == bayNo);
     }
 }

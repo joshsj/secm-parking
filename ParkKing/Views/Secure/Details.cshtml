@@ -1,0 +1,31 @@
+﻿@model Car
+@{
+    ViewData["Title"] = "Secure";
+}
+
+<h1>Secure your vehicle</h1>
+
+<form method="post" asp-action="Finalise">
+    <input type="hidden" asp-for="BayNumber" />
+
+    <div class="form-group">
+        <label asp-for="Password">Password</label>
+        <input class="form-control" type="password" asp-for="Password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber">
+            Phone <small>(For password recovery)</small>
+        </label>
+        <input class="form-control" asp-for="PhoneNumber" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Secure" class="btn btn-primary" />
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

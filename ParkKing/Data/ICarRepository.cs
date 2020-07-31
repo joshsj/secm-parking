@@ -1,8 +1,5 @@
-﻿using ParkKing.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using ParkKing.Models;
 
 namespace ParkKing.Data
 {
@@ -15,5 +12,8 @@ namespace ParkKing.Data
 
         bool Secure(Car car);
         bool Release(Car car);
+
+        // helpers
+        bool IsBayAvailable(int bayNo);
     }
 }

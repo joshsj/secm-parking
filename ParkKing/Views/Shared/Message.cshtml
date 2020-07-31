@@ -1,0 +1,12 @@
+﻿@model MessageViewModel
+@{
+    ViewData["Title"] = "Error";
+
+    var alertClass = Model.IsSuccessMessage ? "success" : "danger";
+}
+
+<p class="alert alert-@alertClass" role="alert">@Model.Message</p>
+
+<p class="text-center">
+    <a class="btn btn-outline-dark" asp-controller="Home" asp-action="Index">Home</a>
+</p>

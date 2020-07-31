@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\Secure\**" />
+    <Content Remove="ViewModels\Secure\**" />
+    <EmbeddedResource Remove="ViewModels\Secure\**" />
+    <None Remove="ViewModels\Secure\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
@@ -16,6 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Secure\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Message.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\YourCar\Register.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
