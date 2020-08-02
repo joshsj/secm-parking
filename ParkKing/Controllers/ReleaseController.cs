@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ParkKing.Data.CarRepository;
+using ParkKing.Data.VehicleRepository;
 using ParkKing.Models;
 using ParkKing.ViewModels;
 
@@ -7,19 +7,19 @@ namespace ParkKing.Controllers
 {
     public class ReleaseController : Controller
     {
-        private readonly ICarRepository carRepo;
+        private readonly IVehicleRepository vehicleRepo;
 
-        public ReleaseController(ICarRepository carRepo)
+        public ReleaseController(IVehicleRepository vehicleRepo)
         {
-            this.carRepo = carRepo;
+            this.vehicleRepo = vehicleRepo;
         }
 
-        public IActionResult Index() => View(new Car());
+        public IActionResult Index() => View(new Vehicle());
 
         [HttpPost]
-        public IActionResult Index(Car car)
+        public IActionResult Index(Vehicle vehicle)
         {
-            var releaseResult = carRepo.Release(car, Authentication.Password);
+            var releaseResult = vehicleRepo.Release(vehicle, Authentication.Password);
 
             // check released
             if (releaseResult == ReleaseResult.Released)
@@ -34,28 +34,28 @@ namespace ParkKing.Controllers
             // check for errors
             if (releaseResult == ReleaseResult.BadBayNumber)
             {
-                ModelState.AddModelError(nameof(Car.BayNumber), "Bay number not in use.");
+                ModelState.AddModelError(nameof(Vehicle.BayNumber), "Bay number not in use.");
             }
 
             if (releaseResult == ReleaseResult.BadPassword)
             {
-                ModelState.AddModelError(nameof(Car.Password), "Password incorrect.");
+                ModelState.AddModelError(nameof(Vehicle.Password), "Password incorrect.");
             }
 
-            return View(car);
+            return View(vehicle);
         }
 
         public IActionResult ForgottenPassword() => View();
 
         [HttpPost]
-        public IActionResult ForgottenPassword(Car car)
+        public IActionResult ForgottenPassword(Vehicle vehicle)
         {
             // get otp from repo
-            switch (carRepo.GenerateOtp(car.BayNumber))
+            switch (vehicleRepo.GenerateOtp(vehicle.BayNumber))
             {
                 case GenerateOtpResult.BadBayNumber:
-                    ModelState.AddModelError(nameof(Car.BayNumber), "Bay number not in use.");
-                    return View(car);
+                    ModelState.AddModelError(nameof(Vehicle.BayNumber), "Bay number not in use.");
+                    return View(vehicle);
 
                 case GenerateOtpResult.NoPhoneNumber:
                     return View("Message", new MessageViewModel
@@ -65,7 +65,7 @@ namespace ParkKing.Controllers
                     });
 
                 case GenerateOtpResult.Generated:
-                    return RedirectToAction(nameof(Otp), car);
+                    return RedirectToAction(nameof(Otp), vehicle);
                     
                 default:
                     return View("Message", new MessageViewModel
@@ -76,20 +76,20 @@ namespace ParkKing.Controllers
             }
         }
 
-        public IActionResult Otp(Car car)
-            => View(car);
+        public IActionResult Otp(Vehicle vehicle)
+            => View(vehicle);
 
         [HttpPost("Otp")]
-        public IActionResult OtpPost(Car car)
+        public IActionResult OtpPost(Vehicle vehicle)
         {
             // try release with otp
-            switch (carRepo.Release(car, Authentication.Otp))
+            switch (vehicleRepo.Release(vehicle, Authentication.Otp))
             {
                 case ReleaseResult.BadOtp:
                     return View("Message", new MessageViewModel
                     {
                         IsSuccessMessage = false,
-                        Message = $"One-time verifation failed. Retry within {carRepo.OtpTimeout.TotalSeconds} seconds."
+                        Message = $"One-time verifation failed. Retry within {vehicleRepo.OtpTimeout.TotalSeconds} seconds."
                     });
 
                 case ReleaseResult.Released:

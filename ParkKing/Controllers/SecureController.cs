@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ParkKing.Data.CarRepository;
+using ParkKing.Data.VehicleRepository;
 using ParkKing.Models;
 using ParkKing.ViewModels;
 
@@ -7,34 +7,34 @@ namespace ParkKing.Controllers
 {
     public class SecureController : Controller
     {
-        private readonly ICarRepository carRepo;
+        private readonly IVehicleRepository vehicleRepo;
 
-        public SecureController(ICarRepository carRepo)
+        public SecureController(IVehicleRepository vehicleRepo)
         {
-            this.carRepo = carRepo;
+            this.vehicleRepo = vehicleRepo;
         }
 
         public IActionResult Index()
-            => View(new Car());
+            => View(new Vehicle());
 
         [HttpPost]
-        public IActionResult Index(Car car)
+        public IActionResult Index(Vehicle vehicle)
         {
             // check bay is available
-            if (!carRepo.IsBayAvailable(car.BayNumber))
+            if (!vehicleRepo.IsBayAvailable(vehicle.BayNumber))
             {
                 // add error to model
-                ModelState.AddModelError(nameof(Car.BayNumber), "Bay unavailable.");
-                return View(car);
+                ModelState.AddModelError(nameof(Vehicle.BayNumber), "Bay unavailable.");
+                return View(vehicle);
             }
 
-            return View("Details", car);
+            return View("Details", vehicle);
         }
 
         [HttpPost]
-        public IActionResult Finalise(Car car)
+        public IActionResult Finalise(Vehicle vehicle)
         {
-            switch (carRepo.Secure(car))
+            switch (vehicleRepo.Secure(vehicle))
             {
                 case SecureResult.BadBayNumber:
                     return View("Message", new MessageViewModel

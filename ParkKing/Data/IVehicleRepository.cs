@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using ParkKing.Models;
 
-namespace ParkKing.Data.CarRepository
+namespace ParkKing.Data.VehicleRepository
 {
-    public interface ICarRepository
+    public interface IVehicleRepository
     {
         int BayAmount { get; }
         TimeSpan OtpTimeout { get; }
 
-        IEnumerable<Car> GetAll();
-        Car GetByBayNo(int no);
+        IEnumerable<Vehicle> GetAll();
+        Vehicle GetByBayNo(int no);
 
-        SecureResult Secure(Car car);
-        ReleaseResult Release(Car car, Authentication auth);
+        SecureResult Secure(Vehicle vehicle);
+        ReleaseResult Release(Vehicle vehicle, Authentication auth);
 
         GenerateOtpResult GenerateOtp(int bayNo);
 

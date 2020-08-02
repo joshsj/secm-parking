@@ -2,7 +2,7 @@
 
 namespace ParkKing.Models
 {
-    public class Car
+    public class Vehicle
     {
         [Required(ErrorMessage = "Bay number is required.")]
         [Range(1, int.MaxValue, ErrorMessage = "Bay number must be greater than zero.")]
