@@ -57,7 +57,7 @@ namespace ParkKing.Controllers
                     return View("Message", new MessageViewModel
                     {
                         IsSuccessMessage = false,
-                        Message = "An interal error occured. Sorry."
+                        Message = "An internal error occured. Sorry."
                     });
             }
         }
