@@ -89,7 +89,7 @@ namespace ParkKing.Controllers
                     return View("Message", new MessageViewModel
                     {
                         IsSuccessMessage = false,
-                        Message = $"One-time verifation failed. Retry within {carRepo.OtpTimeout.TotalMinutes} minutes."
+                        Message = $"One-time verifation failed. Retry within {carRepo.OtpTimeout.TotalSeconds} seconds."
                     });
 
                 case ReleaseResult.Released:

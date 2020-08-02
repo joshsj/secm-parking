@@ -24,15 +24,12 @@ namespace ParkKing.Controllers
             if (!carRepo.IsBayAvailable(car.BayNumber))
             {
                 // add error to model
-                ModelState.AddModelError(nameof(Car.BayNumber), "Bay is occupied by another vehicle.");
+                ModelState.AddModelError(nameof(Car.BayNumber), "Bay unavailable.");
                 return View(car);
             }
 
-            return RedirectToAction(nameof(Details), car);
+            return View("Details", car);
         }
-
-        public IActionResult Details(Car car)
-            => View(car);
 
         [HttpPost]
         public IActionResult Finalise(Car car)
