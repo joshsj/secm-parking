@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ParkKing.Configuration;
 
 namespace ParkKing
 {
@@ -37,15 +36,6 @@ namespace ParkKing
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSingleton<IVehicleRepository, MockVehicleRepository>();
-            
-            services.AddDistributedMemoryCache();
-            services.AddSession(options =>
-            {
-                // Make the session cookie essential
-                options.Cookie.IsEssential = true;
-            });
-
-            services.Configure<SessionConfiguration>(Configuration.GetSection("SessionConfiguration"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,7 +53,6 @@ namespace ParkKing
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSession();
 
             app.UseMvc(routes =>
             {
