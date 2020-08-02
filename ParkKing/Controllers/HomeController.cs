@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ParkKing.ViewModels;
 using System.Linq;
-using ParkKing.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
 using ParkKing.Data.VehicleRepository;
