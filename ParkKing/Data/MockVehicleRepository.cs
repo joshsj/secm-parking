@@ -7,11 +7,17 @@ namespace ParkKing.Data.VehicleRepository
 {
     public class MockVehicleRepository : IVehicleRepository
     {
-        private readonly int bayAmount = 20;
+        private readonly int bayAmount;
         int IVehicleRepository.BayAmount => bayAmount;
 
-        private readonly TimeSpan otpTimeout = TimeSpan.FromSeconds(10);
+        private readonly TimeSpan otpTimeout;
         TimeSpan IVehicleRepository.OtpTimeout => otpTimeout;
+
+        public MockVehicleRepository(int bayAmount, TimeSpan otpTimeout)
+        {
+            this.bayAmount = bayAmount;
+            this.otpTimeout = otpTimeout;
+        }
 
         private List<Vehicle> vehicles = new List<Vehicle>
         {
@@ -58,15 +64,15 @@ namespace ParkKing.Data.VehicleRepository
             }
             else if (auth == Authentication.Otp)
             {
-                if (!(vehicleToRelease.Otp?.Passcode == vehicle.Otp?.Passcode && // different passwords
-                    vehicleToRelease.Otp?.TimeGenerated == vehicle.Otp?.TimeGenerated &&
-                    vehicleToRelease.Otp?.TimeGenerated.Add(otpTimeout) <= DateTime.Now)  // timed out
+                if (!(vehicleToRelease.Otp?.Passcode == vehicle.Otp?.Passcode && // matching passwords
+                    DateTime.Now < vehicleToRelease.Otp?.TimeGenerated.Add(otpTimeout))  // not timed out
                 )
                 {
                     return ReleaseResult.BadOtp;
                 }
             }
 
+            // one way or another, auth has passed
             vehicles.Remove(vehicleToRelease);
             return ReleaseResult.Released;
         }

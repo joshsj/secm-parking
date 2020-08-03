@@ -35,7 +35,14 @@ namespace ParkKing
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSingleton<IVehicleRepository, MockVehicleRepository>();
+            services.AddSingleton<IVehicleRepository>(sp =>
+            {
+                var repoConfig = Configuration.GetSection("CarRepository");
+
+                return new MockVehicleRepository(
+                    repoConfig.GetValue<int>("BayAmount"),
+                    TimeSpan.FromSeconds(repoConfig.GetValue<int>("OtpTimeout")));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
