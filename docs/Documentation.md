@@ -26,7 +26,7 @@ A machine with which a driver can secure their parked vehicle, i.e., a device to
 
 # Assumptions
 
-1. Driver passwords are cryptographically hashed with a salt.
+1. Driver passwords are hashed with the PBKDF2 algorithm using the `System.Cryptography.Rfc2898DeriveBytes` class, and salted cryptographically using `RNGCryptoServiceProvider`.
 
 2) Driver passwords are required to have a minimum of 8 characters. <br/>
    In this use-case, a malicious attack physical access to a drivers' vehicle, and potentially a driver's vehicle keys. Considering the additional logistics of an attack, password requirements can be more lenient than software-only measures.

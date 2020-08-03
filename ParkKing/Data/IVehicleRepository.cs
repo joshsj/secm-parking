@@ -9,9 +9,6 @@ namespace ParkKing.Data.VehicleRepository
         int BayAmount { get; }
         TimeSpan OtpTimeout { get; }
 
-        IEnumerable<Vehicle> GetAll();
-        Vehicle GetByBayNo(int no);
-
         SecureResult Secure(Vehicle vehicle);
         ReleaseResult Release(Vehicle vehicle, Authentication auth);
 

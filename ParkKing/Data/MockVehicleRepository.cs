@@ -19,17 +19,12 @@ namespace ParkKing.Data.VehicleRepository
             this.otpTimeout = otpTimeout;
         }
 
-        private List<Vehicle> vehicles = new List<Vehicle>
+        private List<SecureVehicle> vehicles = new List<SecureVehicle>
         {
-            new Vehicle { BayNumber = 1, Password = "password1", PhoneNumber = "01632960858" },
-            new Vehicle { BayNumber = 4, Password = "password4" },
-            new Vehicle { BayNumber = 5, Password = "password5" },
+            new SecureVehicle { BayNumber = 1, PasswordHash = new PasswordHash("password1"), PhoneNumber = "01632960858" },
+            new SecureVehicle { BayNumber = 4, PasswordHash = new PasswordHash("password4") },
+            new SecureVehicle { BayNumber = 5, PasswordHash = new PasswordHash("password5") },
         };
-
-        IEnumerable<Vehicle> IVehicleRepository.GetAll() => vehicles;
-
-        Vehicle IVehicleRepository.GetByBayNo(int no)
-            => vehicles.SingleOrDefault(vehicle => vehicle.BayNumber == no);
 
         SecureResult IVehicleRepository.Secure(Vehicle vehicle)
         {
@@ -39,7 +34,13 @@ namespace ParkKing.Data.VehicleRepository
                 return SecureResult.BadBayNumber;
             }
 
-            vehicles.Add(vehicle);
+            vehicles.Add(new SecureVehicle
+            {
+                BayNumber = vehicle.BayNumber,
+                PasswordHash = new PasswordHash(vehicle.Password),
+                PhoneNumber = vehicle?.PhoneNumber,
+                Otp = vehicle?.Otp,
+            });
             return SecureResult.Secured;
         }
 
@@ -48,7 +49,7 @@ namespace ParkKing.Data.VehicleRepository
             var vehicleToRelease = vehicles.SingleOrDefault(c => c.BayNumber == vehicle.BayNumber);
 
             // check found
-            if (vehicleToRelease == default(Vehicle))
+            if (vehicleToRelease == default(SecureVehicle))
             {
                 return ReleaseResult.BadBayNumber;
             }
@@ -57,7 +58,7 @@ namespace ParkKing.Data.VehicleRepository
             if (auth == Authentication.Password)
             {
                 // TODO secure
-                if (vehicleToRelease.Password != vehicle.Password)
+                if (!vehicleToRelease.PasswordHash.Verify(vehicle.Password))
                 {
                     return ReleaseResult.BadPassword;
                 }
@@ -86,7 +87,7 @@ namespace ParkKing.Data.VehicleRepository
             var vehicle = vehicles.SingleOrDefault(c => c.BayNumber == bayNo);
 
             // check found
-            if (vehicle == default(Vehicle))
+            if (vehicle == default(SecureVehicle))
             {
                 return GenerateOtpResult.BadBayNumber;
             }
