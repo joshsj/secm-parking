@@ -46,9 +46,12 @@ A machine with which a driver can secure their parked vehicle, i.e., a device to
 
 # Usage
 
-The system uses a mocked repository to store secured vehicle data. This includes a maximum number of parking bays in the car park of 20.
+The following values can be configured:
 
-It also provides test data to simulate additional drivers, with fake phone numbers where used:
+- `BayAmount`, the amount of bays in the car park, provided with '20'
+- `OtpTimeout`, the amount of seconds for one-time passcodes to expire, provided with '120'
+
+The system also uses a mocked repository, providing test data to simulate additional drivers (with fake phone numbers):
 
 | Bay Number | Password    | Phone Number  |
 | :--------: | ----------- | :-----------: |
@@ -58,18 +61,21 @@ It also provides test data to simulate additional drivers, with fake phone numbe
 
 <br/>
 
+# Installation
+
+1. Download the project
+2. Open the solution in Visual Studio 2017
+3. Right-click 'libman.json' and click 'Restore Client-Side Libraries'
+4. Start the project
+5. If asked to trust the SSL certificate, click 'Yes' (applies to Internet Explorer and Google Chrome)
+
 # User Stories & Test Scripts
 
 All test scripts should be followed after (re)starting the application to ensure test data is as expected.
 
-The following values can be configured:
-
-- `BayAmount`, the amount of bays in the car park, provided with '20'
-- `OtpTimeout`, the amount of seconds for one-time passcodes to expire, provided with '120'
-
 ## User Story 1
 
-As a driver, I want to use secure my vehicle and release it upon return, so I don't need to worry about it while unattended.
+As a driver, I want to use secure my vehicle, so I don't need to worry about it while unattended.
 
 **Requirements**
 
@@ -97,19 +103,37 @@ A driver can secure their vehicle in the car park.
 10) Enter a valid password, e.g., 'password2'
 11) Click 'Secure'
 12) The vehicle is secured, indicated with an on-screen message
-13) Click 'Home'
-14) Click 'Release'
-
-15. Enter the bay number used when securing
-16. Enter a different password to that used when securing
-17. Click 'Release'
-18. The attempts fails, indicating the password is incorrect
-
-19) Enter the password used when securing
-20) Click 'Release'
-21) The vehicle is secured, indicated with an on-screen message
 
 ## User Story 2
+
+As a driver, I want to release my vehicle when I return, so I can leave the car park without creating alerts.
+
+**Requirements**
+
+A driver can release their vehicle from the car park.
+
+**Acceptance Criteria**
+
+1. Drivers can release their vehicle.
+2. Drivers are unable to use a password different to the password used to secure their vehicle.
+
+**Test Script**
+
+1. Follow 'User Story 1' to secure a vehicle.
+2. Click 'Home'
+
+3) Click 'Release'
+
+4) Enter the bay number used when securing
+5) Enter a different password to that used when securing
+6) Click 'Release'
+7) The attempts fails, indicating the password is incorrect
+
+8. Enter the password used when securing
+9. Click 'Release'
+10. The vehicle is secured, indicated with an on-screen message
+
+## User Story 3
 
 As a driver, I want to be certain my vehicle has been secured correctly, so that I don't need to worry about it while unattended.
 
@@ -143,7 +167,7 @@ People make mistakes, and may attempt to secure their vehicle in a parking bay d
 10. Click 'Next'
 11. The attempt fails, and a message indicates the input value is invalid
 
-## User Story 3
+## User Story 4
 
 As a driver, I want to ensure I can release my vehicle upon return, to prevent delays to my day.
 
@@ -157,22 +181,17 @@ People can easily forget passwords, even when used regularly. Although the passw
 
 **Acceptance Criteria**
 
-1. Drivers can recover their vehicle without further assistance
+Drivers can recover their vehicle without further assistance
 
 **Test Script**
 
-1. Starting from the home page, click 'Secure'
-2. Enter a available bay number, e.g., '8'
-3. Click 'Next'
-4. Enter a valid password, e.g. 'password8'
-5. Enter a phone number, e.g., '+441632960147'
-6. Click 'Secure'
-7. Click 'Home'
-8. Click 'Release'
+1. Follow 'User Story 1' to secure a vehicle, providing a phone number in the 'Phone' field.
+2. Click 'Home'
 
-9) Click 'Forgotten Password'
-10) Enter the bay number used when securing
-11) Click 'Send OTP'
-12) Enter '000000'
-13) Click 'Release'
-14) The vehicle is released, indicated with an on-screen message
+3) Click 'Release'
+4) Click 'Forgotten Password'
+5) Enter the bay number used when securing
+6) Click 'Send OTP'
+7) Enter '000000'
+8) Click 'Release'
+9) The vehicle is released, indicated with an on-screen message
