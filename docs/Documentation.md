@@ -24,12 +24,13 @@ A machine with which a driver can secure their parked vehicle, i.e., a device to
 
 1. Driver passwords are cryptographically hashed with a salt.
 
-2) In this use-case, the goal of a malicious attack requires physical access to a drivers' car, and potentially a driver's car keys. Considering the additional logistics of an attack, password requirements are more lenient than modern standards, only requiring a minimum of 8 characters. 
+2) Driver passwords are required to have a minimum of 8 characters. <br/>
+In this use-case, a malicious attack physical access to a drivers' car, and potentially a driver's car keys. Considering the additional logistics of an attack, password requirements can be more lenient than software-only measures. 
 
-3. Hardware cannot limit a simulated system.
+3. The simulation will not have limited character input. 
 
-4) The system optionally stores the drivers' phone number, entered when securing their car at a registration point. Password loss is resolved as follows:
+4. The system optionally stores the drivers' phone number, entered when securing their car at a registration point. Password loss is resolved as follows:
 
-    -  If a driver registered a phone number, a one-time password (OTP) will be sent to their phone. This is simulated by releasing the car when the OTP is requested. 
+    -  If a driver registered a phone number, a one-time passcode (OTP) will be sent to their phone. This is simulated with a hard-coded OTP passcode. 
 
-    - If a driver did not register a phone number, a support number will be provided. This is simulation with a fake phone number.
+    - If a driver did not register a phone number, the user will be instructed to seek further help.
