@@ -1,0 +1,23 @@
+﻿@model Vehicle
+@{
+    ViewData["Title"] = "Otp";
+}
+
+<h2>One-time Passcode</h2>
+
+<form method="post" asp-action="OtpPost">
+    <input asp-for="BayNumber" type="hidden"/>
+    
+    <div class="form-group">
+        <label asp-for="Otp.Passcode">Passcode</label>
+        <input class="form-control" asp-for="Otp.Passcode" />
+        <span asp-validation-for="Otp.Passcode" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Release" class="btn btn-success" />
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

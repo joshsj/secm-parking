@@ -1,0 +1,31 @@
+﻿@model Vehicle
+@{
+    ViewData["Title"] = "Release";
+}
+
+<h2>Release</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="BayNumber">Bay Number</label>
+        <input class="form-control" asp-for="BayNumber" autofocus />
+        <span asp-validation-for="BayNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password">Password</label>
+        <input class="form-control" type="password" asp-for="Password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <input type="submit" value="Release" class="btn btn-success" />
+        <a class="ml-3" asp-action="ForgottenPassword">Forgotten password</a>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

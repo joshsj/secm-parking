@@ -351,3 +351,6 @@ MigrationBackup/
 
 # library project files
 **/wwwroot/lib
+
+# include release views folder
+!ParkKing/Views/Release
