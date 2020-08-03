@@ -20,9 +20,14 @@ A machine with which a driver can secure their parked vehicle, i.e., a device to
    - Case variance?
 
 3. If so, is the password input hardware limited?
-   - Only alphanumeric?
+
+   - Only alphanumeric
    - Alphanumeric & specials
+
 4. How do drivers regain access to their vehicle if a password is lost/forgotten?
+
+- Physical verification using employee?
+- Alternate software verification?
 
 # Assumptions
 
@@ -51,14 +56,16 @@ It also provides test data to simulate additional drivers, with fake phone numbe
 |     4      | `password4` |     None      |
 |     5      | `password5` |     None      |
 
+<br/>
+
 # User Stories & Test Scripts
 
 All test scripts should be followed after (re)starting the application to ensure test data is as expected.
 
 The following values can be configured:
 
-- `BayAmount`, `int`, the amount of bays in the car park, provided with '20'
-- `OtpTimeout`, `int`, the amount of seconds for one-time passcodes to expire, provided with '120'
+- `BayAmount`, the amount of bays in the car park, provided with '20'
+- `OtpTimeout`, the amount of seconds for one-time passcodes to expire, provided with '120'
 
 ## User Story 1
 
