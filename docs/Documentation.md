@@ -29,7 +29,7 @@ In this use-case, a malicious attack physical access to a drivers' car, and pote
 
 3. The simulation will not have limited character input. 
 
-4. The system optionally stores the drivers' phone number, entered when securing their car at a registration point. Password loss is resolved as follows:
+4) The system optionally stores the drivers' phone number, entered when securing their car at a registration point. Password loss is resolved as follows:
 
     -  If a driver registered a phone number, a one-time passcode (OTP) will be sent to their phone. This is simulated with a hard-coded OTP passcode. 
 
